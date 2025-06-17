@@ -1,6 +1,6 @@
 #include "d3dUtil.h"
 
-HRESULT CreateShaderFromFile(const WCHAR* csoFile, const WCHAR* hlslFile, LPCSTR* entryPoint, LPCSTR* shaderModel, ID3DBlob** ppBlob) {
+HRESULT CreateShaderFromFile(const WCHAR* csoFile, const WCHAR* hlslFile, LPCSTR entryPoint, LPCSTR shaderModel, ID3DBlob** ppBlob) {
 
 	HRESULT hr = S_OK;
 

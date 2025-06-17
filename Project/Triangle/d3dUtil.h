@@ -13,7 +13,7 @@
 #define GRAPHICS_DEBUGGER_OBJECT_NAME (1)
 #endif
 
-#define SAFE_RELEASE(p) { if (p) { (p)->Release(); (p) == nullptr; }}
+#define SAFE_RELEASE(p) { if (p) { (p)->Release(); (p) = nullptr; }}
 
 
 template <UINT TNameLength>
@@ -90,6 +90,6 @@ inline void D3D11SetDebugObjectName(_In_ IDXGIObject* object, _In_ std::nullptr_
 #endif
 }
 
-HRESULT CreateShaderFromFile(const WCHAR* csoFile, const WCHAR* hlslFile, LPCSTR* entryPoint, LPCSTR* shaderModel, ID3DBlob** ppBlob);
+HRESULT CreateShaderFromFile(const WCHAR* csoFile, const WCHAR* hlslFile, LPCSTR entryPoint, LPCSTR shaderModel, ID3DBlob** ppBlob);
 
 #endif // _D3D_UTIL_H_

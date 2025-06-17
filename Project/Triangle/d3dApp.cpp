@@ -91,7 +91,7 @@ void D3DApp::OnResize() {
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	depthStencilDesc.Width = m_mainWindowWidth;
 	depthStencilDesc.Height = m_mainWindowHeight;
-	depthStencilDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 

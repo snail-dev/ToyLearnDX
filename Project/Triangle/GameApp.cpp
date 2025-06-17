@@ -52,9 +52,9 @@ bool GameApp::InitEffect() {
 
 bool GameApp::InitResource() {
     VertexPosColor vertices[] = {
-            {XMFLOAT3(0.0f, 0.5f, 0.5f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)},
-            {XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)},
-            {XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)},
+            {DirectX::XMFLOAT3(0.0f, 0.5f, 0.5f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)},
+            {DirectX::XMFLOAT3(0.5f, -0.5f, 0.5f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)},
+            {DirectX::XMFLOAT3(-0.5f, -0.5f, 0.5f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)},
     };
 
 	D3D11_BUFFER_DESC vbd;
@@ -67,4 +67,20 @@ bool GameApp::InitResource() {
 	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = vertices;
 	HR(m_pD3D11Device->CreateBuffer(&vbd, &InitData, m_pVertexBuffer.GetAddressOf()));
+
+	UINT stride = sizeof(VertexPosColor);
+	UINT offset = 0;
+
+	m_pD3D11DeviceContext->IASetVertexBuffers(0,1,m_pVertexBuffer.GetAddressOf(), &stride, &offset);
+	m_pD3D11DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pD3D11DeviceContext->IASetInputLayout(m_pVertexLayout.Get());
+	m_pD3D11DeviceContext->VSSetShader(m_pVertexShader.Get(), nullptr, 0);
+	m_pD3D11DeviceContext->PSSetShader(m_pPixelShader.Get(), nullptr, 0);
+
+	D3D11SetDebugObjectName(m_pVertexLayout.Get(), "VertexPosColorLayout");
+	D3D11SetDebugObjectName(m_pVertexBuffer.Get(), "VertexBuffer");
+	D3D11SetDebugObjectName(m_pVertexShader.Get(), "Trangle_VS");
+	D3D11SetDebugObjectName(m_pPixelShader.Get(), "Trangle_PS");
+
+	return true;
 }

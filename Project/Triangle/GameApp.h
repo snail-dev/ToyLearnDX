@@ -2,6 +2,7 @@
 #define __GAME_APP_H_
 
 #include "d3dApp.h"
+#include "d3dUtil.h"
 
 class GameApp : public D3DApp {
 public:
