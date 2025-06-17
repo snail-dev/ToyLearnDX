@@ -1,4 +1,6 @@
 #include "GameApp.h"
+#include "DXTrace.h"
+#include <assert.h>
 
 GameApp::GameApp(HINSTANCE hInstance, const std::wstring& windowTitle, int width, int height) :
     D3DApp(hInstance, windowTitle, width, height) {
