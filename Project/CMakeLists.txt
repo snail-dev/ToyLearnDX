@@ -10,3 +10,4 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
 add_subdirectory("DXInit")
 add_subdirectory("Triangle")
+add_subdirectory("Cube")
