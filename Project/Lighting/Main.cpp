@@ -9,7 +9,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR cmdLine, i
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-    GameApp theApp(hInstance,L"ImGui-Cube", 1280,720);
+    GameApp theApp(hInstance,L"Lighting", 1280,720);
 
 	if(!theApp.Init())
 	    return 0;
