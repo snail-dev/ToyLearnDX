@@ -81,7 +81,7 @@ void RenderStates::InitAll(ID3D11Device* device)
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-    HR(device->CreateSamplerState(&sampDesc, SSLinearWrap.GetAddressOf()));
+    HR(device->CreateSamplerState(&sampDesc, SSAnisotropicWrap.GetAddressOf()));
 
 
 	D3D11_BLEND_DESC bs;
