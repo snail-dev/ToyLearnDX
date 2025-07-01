@@ -10,27 +10,33 @@ cbuffer CBChangesEveryDrawing : register(b0)
 	Material g_Material;
 };
 
+cbuffer CBDrawingStates : register(b1) 
+{
+	int g_IsReflection;
+	float3 g_Pad1;
+};
 
-cbuffer CBChangesEveryFrame : register (b1)
+cbuffer CBChangesEveryFrame : register (b2)
 {
 	matrix g_View;
 	float3 g_EyePosW;
 };
 
-cbuffer CBChangesOnResize : register (b2) 
+cbuffer CBChangesOnResize : register (b3) 
 {
 	matrix g_Proj;
 };
 
-cbuffer CBChangesRarely : register (b3) 
+cbuffer CBChangesRarely : register (b4) 
 {
+	    matrix g_Reflection;
         DirectionalLight g_DirLight[10];
         PointLight g_PointLight[10];
         SpotLight g_SpotLight[10];
         int g_NumDirLight;
         int g_NumPointLight;
         int g_NumSpotLight;
-		float g_Pad;
+		float g_Pad2;
 };
 struct VertexPosNormalTex {
 	float3 posL : POSITION;
@@ -52,5 +58,5 @@ struct VertexPosHWNormalTex {
 
 struct VertexPosHTex {
 	float4 posH : SV_POSITION;
-	float2 tex: TEXCOOD;
+	float2 tex: TEXCOORD;
 };
