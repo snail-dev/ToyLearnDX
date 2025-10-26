@@ -15,7 +15,8 @@ D3DApp::D3DApp(HINSTANCE hinstance, const std::wstring& windowTitle, int windowW
         : m_hInstance(hinstance),
           m_mainWindowTitle(windowTitle),
           m_mainWindowWidth(windowWidth),
-          m_mainWindowHeight(windowHight) {
+          m_mainWindowHeight(windowHight),
+          m_pDepthStencilBuffer(nullptr){
     g_pd3dApp = this;
 }
 
@@ -89,7 +90,7 @@ void D3DApp::OnResize() {
 	m_pDepthStencilBuffer.Reset();
 
 	ComPtr<ID3D11Texture2D> backBuffer;
-	HR(m_pSwapChain->ResizeBuffers(1,m_mainWindowWidth,m_mainWindowHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	HR(m_pSwapChain->ResizeBuffers(1,m_mainWindowWidth,m_mainWindowHeight, DXGI_FORMAT_B8G8R8A8_UNORM, 0));
 	HR(m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void **>(backBuffer.GetAddressOf())));
 	HR(m_pD3D11Device->CreateRenderTargetView(backBuffer.Get(), nullptr, m_pRenderTargetView.GetAddressOf()));
 	
@@ -130,6 +131,10 @@ void D3DApp::OnResize() {
 	m_ScreenViewPort.MaxDepth = 1.0f;
 
 	m_pD3D11DeviceContext->RSSetViewports(1, &m_ScreenViewPort);
+
+    D3D11SetDebugObjectName(m_pDepthStencilBuffer.Get(), "DepthStencilBuffer");
+    D3D11SetDebugObjectName(m_pDepthStencilView.Get(), "DepthStencilView");
+    D3D11SetDebugObjectName(m_pRenderTargetView.Get(), "BackBufferRTV[0]");
 
 }
 
@@ -244,8 +249,11 @@ bool D3DApp::InitDirect3D() {
         ZeroMemory(&sd, sizeof(sd));
         sd.Width = m_mainWindowWidth;
         sd.Height = m_mainWindowHeight;
+#ifdef USE_IMGUI
         sd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-
+#else
+        sd.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+#endif
         if (m_Enable4xMsaa) {
             sd.SampleDesc.Count = 4;
             sd.SampleDesc.Quality = m_4xMsaaQualityLevel - 1;
@@ -273,7 +281,11 @@ bool D3DApp::InitDirect3D() {
         ZeroMemory(&sd, sizeof(sd));
         sd.BufferDesc.Width = m_mainWindowWidth;
         sd.BufferDesc.Height = m_mainWindowHeight;
+#ifdef USE_IMGUI
         sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+#else
+        sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+#endif
         sd.BufferDesc.RefreshRate.Numerator = 60;
         sd.BufferDesc.RefreshRate.Denominator = 1;
         sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;

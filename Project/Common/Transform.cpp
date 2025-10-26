@@ -156,7 +156,7 @@ void Transform::LookAt(const DirectX::XMFLOAT3& target, const DirectX::XMFLOAT3&
 }
 
 void Transform::LookTo(const DirectX::XMFLOAT3& direction, const DirectX::XMFLOAT3& up ) {
-    XMMATRIX View = XMMatrixLookAtLH(XMLoadFloat3(&m_Position), XMLoadFloat3(&direction), XMLoadFloat3(&up));
+    XMMATRIX View = XMMatrixLookToLH(XMLoadFloat3(&m_Position), XMLoadFloat3(&direction), XMLoadFloat3(&up));
     XMMATRIX InView = XMMatrixInverse(nullptr, View);
     XMFLOAT4X4 rotMatrix;
     XMStoreFloat4x4(&rotMatrix, InView);

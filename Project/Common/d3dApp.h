@@ -68,7 +68,7 @@ protected:
 
     D3D11_VIEWPORT m_ScreenViewPort;
 
-    bool m_Enable4xMsaa = false;
+    bool m_Enable4xMsaa = true;
     UINT m_4xMsaaQualityLevel = 0;
 
     CpuTimer m_Timer;
