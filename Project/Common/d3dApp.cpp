@@ -1,9 +1,16 @@
-#include "d3dApp.h"
+﻿#include "d3dApp.h"
 #include "DXTrace.h"
 #include "d3dUtil.h"
 #include <assert.h>
 #include <sstream>
 
+extern "C"
+{
+	// 在具有多显卡的硬件设备中，优先使用NVIDIA或AMD的显卡运行
+	// 需要在.exe中使用
+	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 0x00000001;  // 不开启这个时，蒙板清除似乎有问题，很奇怪。
+}
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

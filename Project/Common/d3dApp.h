@@ -1,4 +1,4 @@
-#ifndef _D3D_APP_H_
+﻿#ifndef _D3D_APP_H_
 #define _D3D_APP_H_
 
 #include <wrl/client.h>
